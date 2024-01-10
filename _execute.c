@@ -1,9 +1,10 @@
 #include "shell.h"
+
 /**
  * _execute - Execute a command with its full path.
- * @command: Array of strings with the command and arguments.
- * @argv: Array of strings with program arguments.
- * @idx: Index of the command in the history.
+ * @cmd_args: Array of strings with the command and arguments.
+ * @program_args: Array of strings with program arguments.
+ * @history_idx: Index of the command in the history.
  *
  * Attempts to execute the specified command using fork() and execve().
  * Waits for the child process to finish. Prints an error if the command
@@ -11,34 +12,35 @@
  *
  * Returns the exit status of the executed command.
  */
-
-int _execute(char **command,char **argv, int idx)
+int _execute(char **cmd_args, char **program_args, int history_idx)
 {
-    char *full_cmd;
-    pid_t child;
-    int status;
+    char *full_path;
+    pid_t child_pid;
+    int child_status;
 
-    full_cmd = _getpath(command[0]);
-    if (!full_cmd)
+    full_path = _getpath(cmd_args[0]);
+    if (!full_path)
     {
-        printerror(argv[0], command[0],  idx);
-        freearray2D(command);
+        printerror(program_args[0], cmd_args[0],  history_idx);
+        freearray2D(cmd_args);
         return (127);
     }
-    child = fork();
-    if(child == 0)
+
+    child_pid = fork();
+    if (child_pid == 0)
     {
-        if (execve(full_cmd, command, environ) == -1)
+        if (execve(full_path, cmd_args, environ) == -1)
         {
-            free(full_cmd), full_cmd = NULL;
-            freearray2D(command);
+            free(full_path), full_path = NULL;
+            freearray2D(cmd_args);
         }
     }
     else
     {
-        waitpid(child,&status,0);
-        freearray2D(command);
-        free(full_cmd), full_cmd = NULL;
+        waitpid(child_pid, &child_status, 0);
+        freearray2D(cmd_args);
+        free(full_path), full_path = NULL;
     }
-    return (WEXITSTATUS(status));
+
+    return (WEXITSTATUS(child_status));
 }

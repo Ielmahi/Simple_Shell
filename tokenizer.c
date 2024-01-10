@@ -1,7 +1,8 @@
 #include "shell.h"
+
 /**
  * tokenizer - Tokenize a string into an array of strings.
- * @line: The string to be tokenized.
+ * @input_string: The string to be tokenized.
  *
  * This function takes a string and tokenizes it using the specified delimiter.
  * It returns an array of strings, where each element represents a token.
@@ -9,45 +10,43 @@
  *
  * @return: Array of strings representing tokens or NULL on failure.
  */
-
-char **tokenizer(char *line)
+char **tokenizer(char *input_string)
 {
-	char *token = NULL, *tmp = NULL;
-	char **command = NULL;
-	int cpt = 0, i = 0;
+    char *token = NULL, *temporary_string = NULL;
+    char **token_array = NULL;
+    int token_count = 0, index = 0;
 
-	if (!line)
-		return (NULL);
-	tmp = _strdup(line);
-	token = strtok(tmp, DELIM);
-	if (token == NULL)
-	{
-		free(tmp), tmp = NULL;
-		free(line), line = NULL;
-		return (NULL);
-	}
-	while (token)
-	{
-		cpt++;
-		token = strtok(NULL, DELIM);
-	}
-	free(tmp), tmp = NULL;
+    if (!input_string)
+        return (NULL);
+    temporary_string = _strdup(input_string);
+    token = strtok(temporary_string, DELIM);
+    if (token == NULL)
+    {
+        free(temporary_string);
+        free(input_string);
+        return (NULL);
+    }
+    while (token)
+    {
+        token_count++;
+        token = strtok(NULL, DELIM);
+    }
+    free(temporary_string), temporary_string = NULL;
 
-	command = malloc(sizeof(char *) * (cpt + 1));
-	if (!command)
-	{
-		free(line);
-		return (NULL);
-	}
+    token_array = malloc(sizeof(char *) * (token_count + 1));
+    if (!token_array)
+    {
+        free(input_string);
+        return (NULL);
+    }
 
-	token = strtok(line, DELIM);
-        while (token)
-        {
-                command[i++] = _strdup(token);
-                token = strtok(NULL, DELIM);
-        }
-	free(line);/*line == NULL;*/
-	command[i] = NULL;
-	return (command);
-
+    token = strtok(input_string, DELIM);
+    while (token)
+    {
+        token_array[index++] = _strdup(token);
+        token = strtok(NULL, DELIM);
+    }
+    free(input_string);/*input_string == NULL;*/
+    token_array[index] = NULL;
+    return (token_array);
 }

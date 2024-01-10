@@ -1,7 +1,8 @@
 #include "shell.h"
+
 /**
  * _getpath - Retrieve the full path of a command from the PATH environment variable.
- * @command: The command to find in the PATH.
+ * @user_command: The command to find in the PATH.
  *
  * This function takes a command and checks if it contains a '/' character. If it
  * does, it checks if the command exists, and if so, returns a duplicated string
@@ -10,43 +11,42 @@
  *
  * @return: The full path of the command or NULL if not found.
  */
-
-char *_getpath(char *command)
+char *_getpath(char *user_command)
 {
-    char *path_env, *full_cmd, *dir;
-    int i;
-    struct stat st;
+    char *path_environment, *full_path, *directory;
+    int index;
+    struct stat file_status;
 
-    for (i = 0; command[i]; i++)
+    for (index = 0; user_command[index]; index++)
     {
-        if (command[i] == '/')
+        if (user_command[index] == '/')
         {
-            if (stat(command, &st) == 0)
-                return (_strdup(command));
+            if (stat(user_command, &file_status) == 0)
+                return (_strdup(user_command));
             return (NULL);
         }
     }
-    path_env = _getenv("PATH");
-    if (!path_env)
+    path_environment = _getenv("PATH");
+    if (!path_environment)
         return (NULL);
-    dir = strtok(path_env, ":");
-    while (dir)
+    directory = strtok(path_environment, ":");
+    while (directory)
     {
-        full_cmd = malloc(strlen(dir) + strlen(command) + 2);
-        if (full_cmd)
+        full_path = malloc(strlen(directory) + strlen(user_command) + 2);
+        if (full_path)
         {
-            _strcpy(full_cmd, dir);
-            _strcat(full_cmd, "/");
-            _strcat(full_cmd, command);
-            if (stat(full_cmd, &st) == 0)
+            _strcpy(full_path, directory);
+            _strcat(full_path, "/");
+            _strcat(full_path, user_command);
+            if (stat(full_path, &file_status) == 0)
             {
-                free(path_env);
-                return (full_cmd);
+                free(path_environment);
+                return (full_path);
             }
-            free(full_cmd), full_cmd = NULL;
-            dir = strtok(NULL, ":");
+            free(full_path), full_path = NULL;
+            directory = strtok(NULL, ":");
         }
     }
-    free(path_env);
+    free(path_environment);
     return(NULL);
 }

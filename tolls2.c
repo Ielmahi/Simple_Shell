@@ -1,33 +1,33 @@
 #include "shell.h"
+
 /**
  * is_positive_number - Check if a string represents a positive number.
- * @str: The input string to be checked.
+ * @number_str: The input string to be checked.
  *
  * Returns 1 if the string represents a positive number, 0 otherwise.
  */
-
-int is_positive_number(char *str)
+int is_positive_number(char *number_str)
 {
-    int  i;
+    int  index;
 
-    if (!str)
+    if (!number_str)
         return (0);
-    for (i = 0; str[i]; i++)
+    for (index = 0; number_str[index]; index++)
     {
-        if (str[i] < '0' || str[i] > '9')
+        if (number_str[index] < '0' || number_str[index] > '9')
             return (0);
     }
     return (1);
 }
 
-int _atoi(char *str)
+int _atoi(char *number_str)
 {
-    int i , num = 0;
+    int index, result = 0;
 
-    for (i = 0; str[i]; i++)
+    for (index = 0; number_str[index]; index++)
     {
-        num *= 10;
-        num += (str[i] - '0');
+        result *= 10;
+        result += (number_str[index] - '0');
     }
-    return(num);
+    return(result);
 }

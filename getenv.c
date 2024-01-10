@@ -1,7 +1,8 @@
 #include "shell.h"
+
 /**
  * _getenv - Retrieve the value of an environment variable.
- * @variable: The name of the environment variable to retrieve.
+ * @search_var: The name of the environment variable to retrieve.
  *
  * This function searches through the environment variables and returns
  * the value associated with the specified variable name. If the variable
@@ -9,24 +10,23 @@
  *
  * @return: The value of the environment variable or NULL if not found.
  */
-
-char *_getenv(char *variable)
+char *_getenv(char *search_var)
 {
-	int i;
-	char *tmp,*key,*value, *env;
+    int index;
+    char *temp, *key, *value, *result;
 
-	for(i = 0; environ[i]; i++)
-	{
-		tmp = _strdup(environ[i]);
-		key = strtok(tmp, "=");
-		if(_strcmp(key,variable) == 0)
-		{
-			value = strtok(NULL,"\n");
-			env = _strdup(value);
-			free(tmp);
-			return (env);
-		}
-		free(tmp),tmp = NULL;
-	}
-	return (NULL);
+    for(index = 0; environ[index]; index++)
+    {
+        temp = _strdup(environ[index]);
+        key = strtok(temp, "=");
+        if(_strcmp(key, search_var) == 0)
+        {
+            value = strtok(NULL,"\n");
+            result = _strdup(value);
+            free(temp);
+            return (result);
+        }
+        free(temp), temp = NULL;
+    }
+    return (NULL);
 }

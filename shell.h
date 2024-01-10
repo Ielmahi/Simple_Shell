@@ -14,20 +14,20 @@
 #define DELIM " \t\n"
 extern char **environ;
 char *read_line(void);
-char **tokenizer(char *line);
-int _execute(char **command,char **argv, int idx);
-void freearray2D(char **array);
-char *_getenv(char *variable);
-char *_getpath(char *command);
-void printerror(char *name, char *cmd, int idx);
-char *_itoa(int n);
-void reverse_string(char *str, int len);
-void print_env(char **command, int *status);
+char **tokenizer(char *input_string);
+int _execute(char **cmd_args, char **program_args, int history_idx);
+void freearray2D(char **string_array);
+char *_getenv(char *search_var);
+char *_getpath(char *user_command);
+void printerror(char *program_name, char *command, int command_index);
+char *_itoa(int number);
+void reverse_string(char *str, int length);
+void print_environment(char **user_command, int *execution_status);
 void exit_shell(char **command, char **argv, int *status, int idx);
-void handle_builtin(char **command, char **argv, int *status, int idx);
-int is_builtin(char *command);
-int _atoi(char *str);
-int is_positive_number(char *str);
+void handle_builtin(char **user_command, char **program_arguments, int *execution_status, int command_index);
+int is_builtin(char *user_command);
+int _atoi(char *number_str);
+int is_positive_number(char *number_str);
 
 char *_strdup(const char *str);
 int _strcmp(char *s1, char *s2);
