@@ -7,8 +7,8 @@ REPO_NAME="your_repository"
 # Create 33 files
 for i in {1..14}
 do
-    touch "file${i}.c"
-    echo "// This is file ${i}" >> "file${i}.c"
+    touch "file${i}.t"
+    echo "// This is file ${i}" >> "file${i}.t"
 done
 
 # Add, commit, and push each file
