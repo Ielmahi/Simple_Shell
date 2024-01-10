@@ -1,4 +1,11 @@
 #include "shell.h"
+/**
+ * read_line - Read a line of input from stdin.
+ *
+ * If stdin is connected to a terminal, it displays a prompt and reads a line
+ * of input from the user. Returns the input line as a dynamically allocated string.
+ * If an error occurs or EOF is reached, returns NULL.
+ */
 
 char *read_line(void)
 {

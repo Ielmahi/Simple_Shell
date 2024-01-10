@@ -1,4 +1,11 @@
 #include "shell.h"
+/**
+ * _strdup - Duplicate a string.
+ * @str: The string to be duplicated.
+ *
+ * Returns a dynamically allocated duplicate of the input string.
+ * If memory allocation fails or the input is NULL, returns NULL.
+ */
 
 char *_strdup(const char *str)
 {

@@ -1,4 +1,10 @@
 #include "shell.h"
+/**
+ * is_positive_number - Check if a string represents a positive number.
+ * @str: The input string to be checked.
+ *
+ * Returns 1 if the string represents a positive number, 0 otherwise.
+ */
 
 int is_positive_number(char *str)
 {

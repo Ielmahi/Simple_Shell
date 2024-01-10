@@ -1,4 +1,15 @@
 #include "shell.h"
+/**
+ * tokenizer - Tokenize a string into an array of strings.
+ * @line: The string to be tokenized.
+ *
+ * This function takes a string and tokenizes it using the specified delimiter.
+ * It returns an array of strings, where each element represents a token.
+ * The last element of the array is set to NULL.
+ *
+ * @return: Array of strings representing tokens or NULL on failure.
+ */
+
 char **tokenizer(char *line)
 {
 	char *token = NULL, *tmp = NULL;

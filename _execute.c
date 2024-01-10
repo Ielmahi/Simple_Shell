@@ -1,4 +1,16 @@
 #include "shell.h"
+/**
+ * _execute - Execute a command with its full path.
+ * @command: Array of strings with the command and arguments.
+ * @argv: Array of strings with program arguments.
+ * @idx: Index of the command in the history.
+ *
+ * Attempts to execute the specified command using fork() and execve().
+ * Waits for the child process to finish. Prints an error if the command
+ * is not found.
+ *
+ * Returns the exit status of the executed command.
+ */
 
 int _execute(char **command,char **argv, int idx)
 {

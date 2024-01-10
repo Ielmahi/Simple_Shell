@@ -1,4 +1,16 @@
 #include "shell.h"
+/**
+ * _getpath - Retrieve the full path of a command from the PATH environment variable.
+ * @command: The command to find in the PATH.
+ *
+ * This function takes a command and checks if it contains a '/' character. If it
+ * does, it checks if the command exists, and if so, returns a duplicated string
+ * with the full path. If the command doesn't contain '/', it searches through the
+ * directories listed in the PATH environment variable to find the full path.
+ *
+ * @return: The full path of the command or NULL if not found.
+ */
+
 char *_getpath(char *command)
 {
     char *path_env, *full_cmd, *dir;
